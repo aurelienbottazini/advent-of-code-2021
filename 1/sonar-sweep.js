@@ -15,20 +15,13 @@ function readFileLines(fileName) {
     .then(R.map(Number));
 }
 
-// readFileLines('./1/example1.txt')
-readFileLines("./1/input.txt")
-  .then(R.aperture(2))
-  .then(R.map(R.apply(R.lt)))
-  .then(R.filter(R.equals(true)))
-  .then(R.length)
-  .then(R.tap(console.log));
+const part1 = R.pipe(
+  R.aperture(2),
+  R.map(R.apply(R.lt)),
+  R.filter(R.equals(true)),
+  R.length,
+  R.tap(console.log)
+);
 
-// readFileLines("./1/example1.txt")
-readFileLines("./1/input.txt")
-  .then(R.aperture(3))
-  .then(R.map(R.sum))
-  .then(R.aperture(2))
-  .then(R.map(R.apply(R.lt)))
-  .then(R.filter(R.equals(true)))
-  .then(R.length)
-  .then(R.tap(console.log));
+readFileLines("./1/input.txt").then(part1);
+readFileLines("./1/input.txt").then(R.pipe(R.aperture(3), R.map(R.sum), part1));
